@@ -21,6 +21,7 @@ public class AbonoPropietario {
     private BigDecimal saldoActual;
     private Usuario usuario;
     private List<Ingreso> ingresos;
+    private Propietario propietario;
 
     /**
     * Constructor por Defecto
@@ -36,11 +37,12 @@ public class AbonoPropietario {
     * @param nroComprobante;
     * @param saldoActual;
     */
-    public AbonoPropietario(Date fechaHora, BigDecimal montoCobrado, int nroComprobante, BigDecimal saldoActual) {
+    public AbonoPropietario(Date fechaHora, BigDecimal montoCobrado, int nroComprobante, BigDecimal saldoActual, Propietario propietario) {
         this.fechaHora = fechaHora;
         this.montoCobrado = montoCobrado;
         this.nroComprobante = nroComprobante;
         this.saldoActual = saldoActual;
+        this.propietario = propietario;
     }
 
     /**
@@ -107,5 +109,13 @@ public class AbonoPropietario {
 
     public void setIngresos(List<Ingreso> ingresos) {
         this.ingresos = ingresos;
+    }
+
+    public Propietario getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Propietario propietario) {
+        this.propietario = propietario;
     }
 }
