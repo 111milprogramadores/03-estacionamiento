@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package poo.estacionamiento.ui;
+package poo.estacionamiento.controller;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
