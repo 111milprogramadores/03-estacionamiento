@@ -13,6 +13,8 @@ import java.util.List;
  * @author Candelaria
  */
 public class Usuario {
+    
+    private Integer id;
     private String apellido;
     private String nombre;
     private String nombreUsuario;
@@ -40,6 +42,14 @@ public class Usuario {
         this.nombreUsuario = nombreUsuario;
         this.password = password;
         this.permisos = permisos;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
     
     public String getApellido() {

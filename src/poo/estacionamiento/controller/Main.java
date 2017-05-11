@@ -5,14 +5,17 @@
  */
 package poo.estacionamiento.controller;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-import poo.estacionamiento.AbonoPropietario;
-import poo.estacionamiento.Propietario;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import poo.estacionamiento.Usuario;
 import poo.estacionamiento.dao.AbonosPropietarioDao;
-import poo.estacionamiento.dao.AbonosPropietarioDaoImpl;
+import poo.estacionamiento.dao.AbonosPropietarioDaoHibernateImpl;
 import poo.estacionamiento.dao.PropietariosDao;
-import poo.estacionamiento.dao.PropietariosDaoImpl;
+import poo.estacionamiento.dao.PropietariosDaoHibernateImpl;
+import poo.estacionamiento.dao.UsuariosDao;
+import poo.estacionamiento.dao.UsuariosDaoHibernateImpl;
 
 /**
  *
@@ -21,24 +24,30 @@ import poo.estacionamiento.dao.PropietariosDaoImpl;
 public class Main {
     
     public static void main (String[] args) {
-        Calendar cal = Calendar.getInstance();
-        PropietariosDao propietariosDao = new PropietariosDaoImpl();
-        AbonosPropietarioDao abonosPropietarioDao = new AbonosPropietarioDaoImpl();
+        SessionFactory sessionFactory = null;
         
-        // insertamos algunos valores iniciales de propietarios
-        Propietario joaquin = new Propietario("Robles", 34315671, "Mario");
-        Propietario mario   = new Propietario("Luiggi", 34315672, "Mario");
+        // A SessionFactory is set up once for an application!
+	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+			.configure("resources/hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
+			.build();
+	try {
+            sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+	}
+	catch (Exception e) {
+            // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
+            // so destroy it manually.
+            StandardServiceRegistryBuilder.destroy( registry );
+            
+            throw e;
+	}
         
-        propietariosDao.guardar(mario);
-        propietariosDao.guardar(joaquin);
+        PropietariosDao propietariosDao = new PropietariosDaoHibernateImpl(sessionFactory);
+        AbonosPropietarioDao abonosPropietarioDao = new AbonosPropietarioDaoHibernateImpl(sessionFactory);
+        UsuariosDao usuariosDao = new UsuariosDaoHibernateImpl(sessionFactory);
         
-        // y de abonos
-        AbonoPropietario abonoJoaquin1 = new AbonoPropietario(cal.getTime(), new BigDecimal(123), 1, new BigDecimal(123), joaquin);
-        AbonoPropietario abonoMario1   = new AbonoPropietario(cal.getTime(), new BigDecimal(321), 2, new BigDecimal(321), joaquin);
+        // obtenemos el usuario logueado
+        Usuario polo = usuariosDao.buscarPorNombre("polo");
         
-        abonosPropietarioDao.guardar(abonoMario1);
-        abonosPropietarioDao.guardar(abonoJoaquin1);
-        
-        new GestorCobroAbono(propietariosDao, abonosPropietarioDao).run();
+        new GestorCobroAbono(propietariosDao, abonosPropietarioDao, polo).run();
     }
 }

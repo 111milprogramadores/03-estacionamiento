@@ -6,12 +6,14 @@
 package poo.estacionamiento.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import poo.estacionamiento.AbonoPropietario;
 import poo.estacionamiento.Propietario;
+import poo.estacionamiento.Usuario;
 import poo.estacionamiento.dao.AbonosPropietarioDao;
 import poo.estacionamiento.dao.PropietariosDao;
 import poo.estacionamiento.ui.PantallaCobroAbono;
@@ -26,13 +28,15 @@ public class GestorCobroAbono {
     
     private final PropietariosDao propietariosDao;
     private final AbonosPropietarioDao abonosPropietarioDao;
+    private final Usuario usuario;
     
     private Propietario propietario;
     private BigDecimal importe;
 
-    public GestorCobroAbono(PropietariosDao propietariosDao, AbonosPropietarioDao abonosPropietarioDao) {
+    public GestorCobroAbono(PropietariosDao propietariosDao, AbonosPropietarioDao abonosPropietarioDao, Usuario usuario) {
         this.propietariosDao = propietariosDao;
         this.abonosPropietarioDao = abonosPropietarioDao;
+        this.usuario = usuario;
     }
 
     public void run() {
@@ -55,7 +59,7 @@ public class GestorCobroAbono {
         int nroComprobante = obtenerUltimoNroComprobante() + 1;
         
         // creamos un nuevo abono del propietario
-        AbonoPropietario abono = new AbonoPropietario(fechaHoraActual, importe, nroComprobante, saldoActualizado, propietario);
+        AbonoPropietario abono = new AbonoPropietario(fechaHoraActual, importe, nroComprobante, saldoActualizado, propietario, usuario, new ArrayList<>());
         
         // y lo guardamos en nuestro acceso a datos
         abonosPropietarioDao.guardar(abono);

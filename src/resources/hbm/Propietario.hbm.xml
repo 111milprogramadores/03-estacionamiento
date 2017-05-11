@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="poo.estacionamiento.Propietario" table="Propietario">
+      <id name="id" column="id_propietario">
+          <generator class="increment"/>
+      </id>
+      <property name="apellido" />
+      <property name="nombre" />
+      <property name="dni" />
+  </class>
+</hibernate-mapping>

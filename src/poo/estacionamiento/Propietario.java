@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class Propietario {
     
+    private Integer id;
     private List<Vehiculo> vehiculos;
     private String apellido;
     private int dni;
@@ -55,6 +56,14 @@ public class Propietario {
         this.nombre = nombre;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public String getApellido() {
         return apellido;
     }

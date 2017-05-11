@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="poo.estacionamiento.AbonoPropietario" table="AbonoPropietario">
+      <id name="nroComprobante" column="nro_comprobante">
+          <generator class="assigned"/>
+      </id>
+      <property name="fechaHora" column="fecha_hora" type="java.util.Date" />
+      <property name="montoCobrado" column="monto_cobrado" type="java.math.BigDecimal" />
+      <property name="saldoActual" column="saldo_actual" type="java.math.BigDecimal" />
+      
+      <many-to-one name="propietario" column="id_propietario" class="poo.estacionamiento.Propietario" lazy="false" />
+      <many-to-one name="usuario" column="id_usuario" class="poo.estacionamiento.Usuario" lazy="false" />
+  </class>
+</hibernate-mapping>

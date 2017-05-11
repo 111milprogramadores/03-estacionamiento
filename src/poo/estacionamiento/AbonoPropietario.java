@@ -36,6 +36,7 @@ public class AbonoPropietario {
     * @param montoCobrado;
     * @param nroComprobante;
     * @param saldoActual;
+     * @param propietario
     */
     public AbonoPropietario(Date fechaHora, BigDecimal montoCobrado, int nroComprobante, BigDecimal saldoActual, Propietario propietario) {
         this.fechaHora = fechaHora;
@@ -54,11 +55,12 @@ public class AbonoPropietario {
     * @param usuario;
     * @param ingresos;
     */
-    public AbonoPropietario(Date fechaHora, BigDecimal montoCobrado, int nroComprobante, BigDecimal saldoActual, Usuario usuario, List<Ingreso> ingresos) {
+    public AbonoPropietario(Date fechaHora, BigDecimal montoCobrado, int nroComprobante, BigDecimal saldoActual, Propietario propietario, Usuario usuario, List<Ingreso> ingresos) {
         this.fechaHora = fechaHora;
         this.montoCobrado = montoCobrado;
         this.nroComprobante = nroComprobante;
         this.saldoActual = saldoActual;
+        this.propietario = propietario;
         this.usuario = usuario;
         this.ingresos = ingresos;
     }
